@@ -20,10 +20,11 @@ class ViewController: UIViewController {
 
 let words = [
     ["Apple", "Pear", "Watermelon", "Carrot", "Banana"],
-    ["Carrot", "Pickle", "Potato", "Tomato"]
+    ["Carrot", "Pickle", "Potato", "Tomato"],
+    ["Strawberry", "Raspberry", "Blueberry", "Blueberry"]
     ]
 
-let header = ["Fruits", "Vegans"]
+let header = ["Fruits", "Vegans", "Berries"]
 
  
 extension ViewController: UITableViewDataSource {
@@ -32,6 +33,7 @@ extension ViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return words.count
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let vegFrutArray = words[section]
         return vegFrutArray.count
@@ -56,4 +58,19 @@ extension ViewController: UITableViewDataSource {
     }
 
 
+}
+
+extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let alert = UIAlertController(title: nil,
+                                      message: "вы нажали на: \(words[indexPath.section][indexPath.row])",
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            alert.dismiss(animated: true)
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
 }
